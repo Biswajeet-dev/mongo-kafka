@@ -213,3 +213,19 @@ Here is the pom.xml that can build the complete jar containing the AwsAssumeRole
 
 </project>
 ```
+#Alternate Way
+
+curl -X POST http://localhost:8083/connectors -H "Content-Type: application/json" -d '{
+  "name": "mongo-sink-connector",
+  "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+    "tasks.max": "1",
+    "topics": "sensor-data",
+    "connection.uri": "mongodb://localhost:27017",
+    "database": "iot",
+    "collection": "readings",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false"
+  }
+}'
